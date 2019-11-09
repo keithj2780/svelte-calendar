@@ -1,15 +1,14 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
 ---
 
-# svelte app
+# svelte Calendar Component
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+This is a sample Calendar component for [Svelte](https://svelte.dev) apps. It lives at https://https://github.com/keithj2780/svelte-calendar.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+To create a new project based on this calendar using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-npx degit sveltejs/template svelte-app
+npx degit keithj2780/svelte-calendar svelte-calendar
 cd svelte-app
 ```
 
@@ -21,7 +20,7 @@ cd svelte-app
 Install the dependencies...
 
 ```bash
-cd svelte-app
+cd svelte-calendar
 npm install
 ```
 
