@@ -9,7 +9,7 @@ This is a sample Calendar component for [Svelte](https://svelte.dev) apps. It li
 
 See demo at [svelte-calendar.surge.sh/](http://svelte-calendar.surge.sh/)
 
-![Screenshot](https://github.com/keithj2780/svelte-calendar/screenshot.png "Screenshot")
+![Screenshot](https://github.com/keithj2780/svelte-calendar/Screenshot1.png "Screenshot")
 
 
 # Download the project
