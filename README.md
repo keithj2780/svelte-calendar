@@ -3,11 +3,14 @@
 
 # svelte Calendar Component
 
-This is a sample Calendar component for [Svelte](https://svelte.dev) apps. It lives at https://https://github.com/keithj2780/svelte-calendar.
+This is a sample Calendar component for [Svelte](https://svelte.dev) apps. It lives at https://github.com/keithj2780/svelte-calendar.
 
 # Demo
 
 See demo at [svelte-calendar.surge.sh/](http://svelte-calendar.surge.sh/)
+
+![Screenshot](https://github.com/keithj2780/svelte-calendar/screenshot.png "Screenshot")
+
 
 # Download the project
 
