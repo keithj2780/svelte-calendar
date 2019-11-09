@@ -5,6 +5,12 @@
 
 This is a sample Calendar component for [Svelte](https://svelte.dev) apps. It lives at https://https://github.com/keithj2780/svelte-calendar.
 
+# Demo
+
+See demo at [svelte-calendar.surge.sh/](http://svelte-calendar.surge.sh/)
+
+# Download the project
+
 To create a new project based on this calendar using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
