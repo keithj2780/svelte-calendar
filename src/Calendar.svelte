@@ -1,6 +1,6 @@
 <div class="calendar">
-	{#each dayNames as dayName}
-	<span class="day-name" on:click={()=>dispatch('headerClick',dayName)}>{dayName}</span>
+	{#each headers as header}
+	<span class="day-name" on:click={()=>dispatch('headerClick',header)}>{header}</span>
 	{/each}
 
 	{#each days as day}
@@ -15,8 +15,9 @@
 		<section
 			on:click={()=>dispatch('itemClick',item)} 
 			class="task {item.className}"
-			style="grid-column: {item.startCol} / span {item.len};
-			grid-row: {item.startRow};  align-self: {item.isBottom?`end`:`center`};"
+      style="grid-column: {item.startCol} / span {item.len};      
+      grid-row: {item.startRow};  
+      align-self: {item.isBottom?'end':'center'};"
 			>
 			{item.title}
 			{#if item.detailHeader}
@@ -32,7 +33,7 @@
 <script>
 	import {createEventDispatcher, onMount} from 'svelte';
 
-	export var dayNames = [];
+	export var headers = [];
 	export let days = [];
 	export let items = [];
 	

@@ -4,7 +4,8 @@
 
 	var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 	let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	
+
+	let headers = [];
 	let now = new Date();
 	let year = now.getFullYear();		//	this is the month & year displayed
 	let month = now.getMonth();
@@ -22,19 +23,23 @@
 	//	And, if an item overlaps rows, then you need to add a 2nd item on the subsequent row.
 	var items = [];
 
-	function initItems() {
+	function initMonthItems() {
 		let y = year;
 		let m = month;
+		let d1=new Date(y,m,randInt(7)+7);
 		items=[
-			{title:"Task Early in month",className:"task--primary",date:new Date(y,m,randInt(28)),len:randInt(4)+1},
-			{title:"Wk 2 tasks",className:"task--warning",date:new Date(y,m,randInt(28)),len:randInt(4)+2},
-			{title:"Overlapping Stuff (isBottom:true)",date:new Date(y,m,randInt(28)),className:"task--info",len:4,isBottom:true},
-			{title:"More Stuff to do",date:new Date(y,m,randInt(28)),className:"task--info",len:randInt(4)+1,detailHeader:"Difficult",detailContent:"But not especially so"},
-			{title:"One day task",date:new Date(y,m,randInt(28)),className:"task--danger",len:1},
+			{title:"11:00 Task Early in month",className:"task--primary",date:new Date(y,m,randInt(6)),len:randInt(4)+1},
+			{title:"7:30 Wk 2 tasks",className:"task--warning",date:d1,len:randInt(4)+2},
+			{title:"Overlapping Stuff (isBottom:true)",date:d1,className:"task--info",len:4,isBottom:true},
+			{title:"10:00 More Stuff to do",date:new Date(y,m,randInt(7)+14),className:"task--info",len:randInt(4)+1,detailHeader:"Difficult",detailContent:"But not especially so"},
+			{title:"All day task",date:new Date(y,m,randInt(7)+21),className:"task--danger",len:1,vlen:2},
 		];
+
+		//This is where you calc the row/col to put each dated item
 		for (let i of items) {
 			let rc = findRowCol(i.date);
 			if (rc == null) {
+				console.log('didn`t find date for ',i);
 				console.log(i.date);
 				console.log(days);
 				i.startCol = i.startRow = 0;
@@ -45,17 +50,22 @@
 		}
 	}
 
-	$: month,year,initDays(),initItems(); 
-	
-	initDays();
-	
+	$: month,year,initContent();
+
 	// choose what date/day gets displayed in each date box.
-	function initDays() {
+	function initContent() {
+		headers = dayNames;
+		initMonth();
+		initMonthItems();
+	}
+
+	function initMonth() {
 		days = [];
 		let monthAbbrev = monthNames[month].slice(0,3);
 		let nextMonthAbbrev = monthNames[(month+1)%12].slice(0,3);
 		//	find the last Monday of the previous month
-		var firstDay = new Date(year, month, 1).getDay()-1;
+		var firstDay = new Date(year, month, 1).getDay();
+		//console.log('fd='+firstDay+' '+dayNames[firstDay]);
 		var daysInThisMonth = new Date(year, month+1, 0).getDate();
 		var daysInLastMonth = new Date(year, month, 0).getDate();
 		var prevMonth = month==0 ? 11 : month-1;
@@ -92,13 +102,28 @@
 	}
 
 	function itemClick(e) {
-		eventText='itemClick '+JSON.stringify(e);
+		eventText='itemClick '+JSON.stringify(e) + ' localtime='+e.date.toString();
 	}
 	function dayClick(e) {
-		eventText='onDayClick '+JSON.stringify(e);
+		eventText='onDayClick '+JSON.stringify(e) + ' localtime='+e.date.toString();
 	}
 	function headerClick(e) {
 		eventText='onHheaderClick '+JSON.stringify(e);
+	}
+	function next() {
+		month++;
+		if (month == 12) {
+			year++;
+			month=0;
+		}
+	}
+	function prev() {
+		if (month==0) {
+			month=11;
+			year--;
+		} else {
+			month--;
+		}
 	}
 	
 </script>
@@ -107,21 +132,21 @@
   <div class="calendar-header">
     <h1>
       <button on:click={()=>year--}>&Lt;</button>
-      <button on:click={()=>{if (month==0) month=11;else {year--;month--;}}}>&lt;</button>
+      <button on:click={()=>prev()}>&lt;</button>
        {monthNames[month]} {year}
-      <button on:click={()=>{month++;if (month == 12) year++; month%=12;}}>&gt;</button>
+      <button on:click={()=>next()}>&gt;</button>
       <button on:click={()=>year++}>&Gt;</button>
     </h1>
 		{eventText}
-  </div>
+	</div>
 
 	<Calendar
-					{dayNames}
-					{days}
-					{items}
-					on:dayClick={(e)=>dayClick(e.detail)}
-					on:itemClick={(e)=>itemClick(e.detail)}
-					on:headerClick={(e)=>headerClick(e.detail)}
+		{headers}
+		{days}
+		{items}
+		on:dayClick={(e)=>dayClick(e.detail)}
+		on:itemClick={(e)=>itemClick(e.detail)}
+		on:headerClick={(e)=>headerClick(e.detail)}
 		/>
 </div>
 	
